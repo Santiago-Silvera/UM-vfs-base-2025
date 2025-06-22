@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
             return EXIT_FAILURE;
         }
         int inode = dir_lookup(image_path, filename);
-        if (inode != 0) {
+        if (inode == 0) {
             fprintf(stderr, "Error: El archivo '%s' no existe en el sistema de archivos.\n", filename);
             return EXIT_FAILURE;
         }

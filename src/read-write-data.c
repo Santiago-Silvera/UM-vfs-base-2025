@@ -133,7 +133,7 @@ int inode_write_data(const char *image_path, uint32_t inode_number, void *data_b
 
 int inode_read_data(const char *image_path, uint32_t inode_number, void *data_buf, size_t len, size_t offset) {
     // Lee datos desde un archivo, a partir de un offset dado, hasta len bytes.
-    // Retorna 0 si todo fue bien, -1 si hubo error.
+    // Docs de esta funcion es incorrecto: Debe retornar len si todo anda bien, -1 si hubo error.
     DEBUG_PRINT("inode_read_data inode_number %d, len %zu, offset %zu.\n", inode_number, len, offset);
 
     struct inode in;
@@ -195,6 +195,5 @@ int inode_read_data(const char *image_path, uint32_t inode_number, void *data_bu
         fprintf(stderr, "Error al actualizar el atime del inodo %u.\n", inode_number);
         return -1;
     }
-
     return len;
 }

@@ -29,13 +29,13 @@ int main(int argc, char *argv[]) {
             return EXIT_FAILURE;
         }
         int inode = dir_lookup(image_path, filename);
-        if (inode != 0) {
+        if (inode == 0) {
             fprintf(stderr, "Error: El archivo '%s' no existe en el sistema de archivos.\n", filename);
             return EXIT_FAILURE;
         }
 
         void *buffer = malloc(BLOCK_SIZE);
-        if (inode_read_data(image_path, inode, buffer, BLOCK_SIZE, 0) != 0) {
+        if (inode_read_data(image_path, inode, buffer, BLOCK_SIZE, 0) == -1) {
             fprintf(stderr, "Error al leer datos del archivo %s\n", filename);
             free(buffer);
             return EXIT_FAILURE;

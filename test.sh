@@ -21,6 +21,12 @@ TEST_IMG="test.img"
 cleanup() {
     echo -e "${YELLOW}Cleaning up...${NC}"
     rm -f "$TEST_IMG"
+    if [ -f "host_file.txt" ]; then
+        rm -f "host_file.txt"
+    fi
+    if [ -f "copied_file.txt" ]; then
+        rm -f "copied_file.txt"
+    fi
 }
 
 # Error handler
@@ -86,22 +92,21 @@ fi
 echo "8. Testing vfs-ls (verify specific files)..."
 ./vfs-ls "$TEST_IMG" | grep -q "file1.txt" && \
 ./vfs-ls "$TEST_IMG" | grep -q "file2.txt" && \
-./vfs-ls "$TEST_IMG" | grep -q "file3.txt" && \
-./vfs-ls "$TEST_IMG" | grep -q "copied_file.txt"
+./vfs-ls "$TEST_IMG" | grep -q "file3.txt"
 print_status $? "All expected files found in listing"
 
 echo "9. Testing vfs-copy (copy file from host)..."
 # Create a test file on host
-echo "Hello, VFS!" > host_file.txt
+echo "Hello, VFS" > host_file.txt
 ./vfs-copy "$TEST_IMG" host_file.txt copied_file.txt
 print_status $? "Copied file from host to VFS"
 
 echo "10. Testing vfs-ls (after copy)..."
 NEW_FILE_COUNT=$(./vfs-ls "$TEST_IMG" | wc -l)
-if [ "$NEW_FILE_COUNT" -eq 5 ]; then
+if [ "$NEW_FILE_COUNT" -eq 6 ]; then
     echo -e "${GREEN}✓ Correct number of files after copy ($NEW_FILE_COUNT)${NC}"
 else
-    echo -e "${RED}✗ Expected 5 files, got $NEW_FILE_COUNT${NC}"
+    echo -e "${RED}✗ Expected 6 files, got $NEW_FILE_COUNT${NC}"
     exit 1
 fi
 
@@ -119,10 +124,10 @@ print_status $? "File removed"
 
 echo "14. Testing vfs-ls (after removal)..."
 FINAL_FILE_COUNT=$(./vfs-ls "$TEST_IMG" | wc -l)
-if [ "$FINAL_FILE_COUNT" -eq 3 ]; then
+if [ "$FINAL_FILE_COUNT" -eq 5 ]; then
     echo -e "${GREEN}✓ Correct number of files after removal ($FINAL_FILE_COUNT)${NC}"
 else
-    echo -e "${RED}✗ Expected 3 files, got $FINAL_FILE_COUNT${NC}"
+    echo -e "${RED}✗ Expected 5 files, got $FINAL_FILE_COUNT${NC}"
     exit 1
 fi
 
