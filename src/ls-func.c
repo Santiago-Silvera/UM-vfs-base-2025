@@ -10,7 +10,7 @@
 #include <string.h>
 #include <time.h>
 
-#include "vfs.h"
+#include "../include/vfs.h"
 
 // Retorna tipo estilo Unix: "-" para archivos regulares, "d" para directorios
 const char *str_file_type(uint16_t mode) {

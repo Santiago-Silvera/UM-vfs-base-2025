@@ -1,13 +1,12 @@
 // read-write-data.c
 
-#include <errno.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
 
-#include "vfs.h"
+#include "../include/vfs.h"
 
 int inode_write_data(const char *image_path, uint32_t inode_number, void *data_buf, size_t len, size_t offset) {
     // Escribe datos en un archivo, desde un offset dado.

@@ -8,7 +8,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#include "vfs.h"
+#include "../include/vfs.h"
 
 int read_inode(const char *image_path, uint32_t inode_number, struct inode *in) {
     // Lee nodo-I de la posicion inode_number

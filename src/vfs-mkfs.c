@@ -1,6 +1,6 @@
 // vfs-mkfs.c
 
-#include "vfs.h"
+#include "../include/vfs.h"
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
